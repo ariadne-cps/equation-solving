@@ -109,7 +109,6 @@ Void export_equation_solvers(pybind11::module& module)
 
 }
 
-
-
-
-
+Void equation_solving_submodule(pybind11::module& module) {
+    export_equation_solvers(module);
+}
