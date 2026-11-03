@@ -433,10 +433,12 @@ Void test_equation_solver_header_contracts()
 }
 
     Void test_maximum_error_constructors() {
+        // Both constructors must preserve the exact stored double, not an
+        // indeterminate comparison between approximate numeric objects.
         MaximumError maximum_error_from_approximate(ApproximateDouble(1e-5));
         MaximumError maximum_error_from_double(1e-5);
-        ARIADNE_TESTING_EXPECT_EQUAL(maximum_error_from_approximate.value(),ApproximateDouble(1e-5));
-        ARIADNE_TESTING_EXPECT_EQUAL(maximum_error_from_double.value(),ApproximateDouble(1e-5));
+        ARIADNE_TESTING_EXPECT_EQUAL(maximum_error_from_approximate.value().get_d(), 1e-5);
+        ARIADNE_TESTING_EXPECT_EQUAL(maximum_error_from_double.value().get_d(), 1e-5);
     }
 
     Void test_krawczyk_function_factory() {
