@@ -8,6 +8,7 @@
 [![codecov](https://codecov.io/gh/ariadne-cps/equation-solving/branch/main/graph/badge.svg)](https://codecov.io/gh/ariadne-cps/equation-solving)
 
 Ariadne Equation Solving is a standalone C++20 library for validated solution of systems of equations, fixed-point problems, and implicit functions. It provides Interval Newton, Krawczyk and Factored Krawczyk methods.
+Although independently maintained and usable, this repository is also part of the [Ariadne repository structure](https://github.com/ariadne-cps/ariadne/blob/main/doc/structure.md).
 
 ## Layout
 
@@ -16,7 +17,7 @@ Public headers live under `include/equation-solving`, implementations directly i
 ## Dependencies
 
 - [ariadne-cps/function](https://github.com/ariadne-cps/function), included as a Git submodule.
-- [ariadne-cps/configuration](https://github.com/ariadne-cps/configuration), used for shared build configuration.
+- [ariadne-cps/build](https://github.com/ariadne-cps/build), used for shared build configuration.
 
 ## Build
 
