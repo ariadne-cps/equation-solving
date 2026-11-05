@@ -37,5 +37,6 @@ target_link_libraries(pyariadne-equation_solving INTERFACE
 
 ariadne_add_python_module(
     NAME equation_solving
+    MODULE_IMPORT_NAME pyariadne_equationsolving
     MODULE_SOURCE equation_solving_module.cpp
 )

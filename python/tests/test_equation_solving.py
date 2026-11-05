@@ -1,4 +1,4 @@
-from pyariadne import IntervalNewtonSolver, KrawczykSolver, FactoredKrawczykSolver
+from pyariadne_equationsolving import IntervalNewtonSolver, KrawczykSolver, FactoredKrawczykSolver
 
 def test_solver_exports():
     for cls in (IntervalNewtonSolver, KrawczykSolver, FactoredKrawczykSolver):

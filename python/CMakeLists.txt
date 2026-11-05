@@ -15,7 +15,7 @@ if(Python3_FOUND)
     add_subdirectory(bindings)
 
     if(CMAKE_SOURCE_DIR STREQUAL PROJECT_SOURCE_DIR)
-        ariadne_finalize_python_module(NAME equation_solving)
+        ariadne_finalize_python_module(NAME equation_solving MODULE_IMPORT_NAME pyariadne_equationsolving)
 
         # Install into a prefix-relative destination, like Ariadne Symbolic.
         if(WIN32)

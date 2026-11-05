@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from pyariadne import *
+from pyariadne_equationsolving import *
 
 def section(title):
     print(f"\n== {title} ==")
