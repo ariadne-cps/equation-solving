@@ -21,8 +21,9 @@ endif()
 
 if(EXISTS "${PROJECT_SOURCE_DIR}/.git")
     # Pinned child commits guarantee their internal consistency.
+    # Testing is development-only and excluded from dependency consistency.
     require_same_dependency_commit(Build CHAINS
-        "build" "function|build" "testing|build")
+        "build" "function|build" "logging|build")
 endif()
 
 setup_project()
@@ -36,7 +37,7 @@ target_include_directories(equation_solving INTERFACE
     $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include/ariadne-equation-solving>
 )
-target_link_libraries(equation_solving INTERFACE function)
+target_link_libraries(equation_solving INTERFACE function logging)
 
 add_subdirectory(src)
 target_link_libraries(EQUATION_SOLVING_SRC PRIVATE equation_solving)
@@ -53,7 +54,7 @@ setup_project_library(
     LINK_LIBRARIES equation_solving
 )
 
-setup_standalone_project_tests(
+setup_standalone_project(
     TARGET ariadne-equation-solving
     TEST_DIRECTORY tests
     TEST_TARGET tests
