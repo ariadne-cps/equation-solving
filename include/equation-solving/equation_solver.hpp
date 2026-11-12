@@ -6,24 +6,24 @@
  ****************************************************************************/
 
 /*
- *  This file is part of Ariadne.
+ *  This file is part of Ariadne Equation Solving.
  *
- *  Ariadne is free software: you can redistribute it and/or modify
+ *  Ariadne Equation Solving is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
  *  (at your option) any later version.
  *
- *  Ariadne is distributed in the hope that it will be useful,
+ *  Ariadne Equation Solving is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  *  GNU General Public License for more details.
  *
  *  You should have received a copy of the GNU General Public License
- *  along with Ariadne.  If not, see <https://www.gnu.org/licenses/>.
+ *  along with Ariadne Equation Solving. If not, see <https://www.gnu.org/licenses/>.
  */
 
-/*! \file equation-solving/equation_solver.hpp
- *  \brief Solver classes for algebraic equations.
+/** @file equation-solving/equation_solver.hpp
+ *  @brief Solver classes for algebraic equations.
  */
 
 #ifndef ARIADNE_EQUATION_SOLVER_HPP
@@ -81,6 +81,7 @@ class EquationSolverBase
 
     /*! \brief Solve \f$f(x)=0\f$, starting in the box \a bx. */
     virtual Vector<ValidatedNumericType> solve(const ValidatedVectorMultivariateFunction& f,const ExactBoxType& bx) const;
+    /** @brief Contract an existing interval-valued point toward a root. */
     virtual Vector<ValidatedNumericType> solve(const ValidatedVectorMultivariateFunction& f,const Vector<ValidatedNumericType>& ipt) const;
     /*! \brief Solve \f$f(a,x)=0\f$ for a in \a par, looking for a solution with x in \a ix. */
     virtual ValidatedVectorMultivariateFunctionPatch implicit(const ValidatedVectorMultivariateFunction& f, const ExactBoxType& par, const ExactBoxType& ix) const;

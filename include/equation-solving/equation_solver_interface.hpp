@@ -6,24 +6,24 @@
  ****************************************************************************/
 
 /*
- *  This file is part of Ariadne.
+ *  This file is part of Ariadne Equation Solving.
  *
- *  Ariadne is free software: you can redistribute it and/or modify
+ *  Ariadne Equation Solving is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
  *  (at your option) any later version.
  *
- *  Ariadne is distributed in the hope that it will be useful,
+ *  Ariadne Equation Solving is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  *  GNU General Public License for more details.
  *
  *  You should have received a copy of the GNU General Public License
- *  along with Ariadne.  If not, see <https://www.gnu.org/licenses/>.
+ *  along with Ariadne Equation Solving. If not, see <https://www.gnu.org/licenses/>.
  */
 
-/*! \file equation-solving/equation_solver_interface.hpp
- *  \brief Interface for solving algebraic equations.
+/** @file equation-solving/equation_solver_interface.hpp
+ *  @brief Interface for solving algebraic equations.
  */
 
 #ifndef ARIADNE_EQUATION_SOLVER_INTERFACE_HPP
@@ -45,6 +45,7 @@ namespace Ariadne { template<class T> class Set; }
 namespace Ariadne {
 
 
+/** @brief Compare vectors lexicographically using decided component order. */
 template<class X> bool operator<(Vector<X> const& v1, Vector<X> const& v2) {
     if(v1.size()!=v2.size()) { return v1.size()<v2.size(); }
     for(SizeType i=0; i!=v1.size(); ++i) {
@@ -60,7 +61,9 @@ class EquationSolverInterface;
 class EquationSolverException : public std::runtime_error
 {
   public:
+    /** @brief Construct an equation solver error from a C string. */
     EquationSolverException(const char* what) : std::runtime_error(what) { }
+    /** @brief Construct an equation solver error from a string. */
     EquationSolverException(const StringType& what) : std::runtime_error(what) { }
 };
 
@@ -69,7 +72,9 @@ class EquationSolverException : public std::runtime_error
 class UnknownSolutionException : public EquationSolverException
 {
   public:
+    /** @brief Report that a solution could not be established. */
     UnknownSolutionException(const char* what) : EquationSolverException(what) { }
+    /** @brief Report that a solution could not be established. */
     UnknownSolutionException(const StringType& what) : EquationSolverException(what) { }
 };
 
@@ -77,7 +82,9 @@ class UnknownSolutionException : public EquationSolverException
 class NoSolutionException : public EquationSolverException
 {
   public:
+    /** @brief Report the absence of solutions. */
     NoSolutionException(const char* what) : EquationSolverException(what) { }
+    /** @brief Report the absence of solutions. */
     NoSolutionException(const StringType& what) : EquationSolverException(what) { }
 };
 
@@ -85,7 +92,9 @@ class NoSolutionException : public EquationSolverException
 class SingularJacobianException : public EquationSolverException
 {
   public:
+    /** @brief Report a singular Jacobian preventing contraction. */
     SingularJacobianException(const char* what) : EquationSolverException(what) { }
+    /** @brief Report a singular Jacobian preventing contraction. */
     SingularJacobianException(const StringType& what) : EquationSolverException(what) { }
 };
 
@@ -175,6 +184,7 @@ class EquationSolverInterface
     virtual Set< Vector<ValidatedNumericType> > solve_all(const ValidatedVectorMultivariateFunction& f,const ExactBoxType& bx) const = 0;
 };
 
+/** @brief Write the solver's configuration to an output stream. */
 inline OutputStream& operator<<(OutputStream& os, const EquationSolverInterface& solver) {
     solver._write(os); return os;
 }

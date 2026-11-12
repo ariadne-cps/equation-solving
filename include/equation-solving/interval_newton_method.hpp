@@ -6,24 +6,24 @@
  ****************************************************************************/
 
 /*
- *  This file is part of Ariadne.
+ *  This file is part of Ariadne Equation Solving.
  *
- *  Ariadne is free software: you can redistribute it and/or modify
+ *  Ariadne Equation Solving is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
  *  (at your option) any later version.
  *
- *  Ariadne is distributed in the hope that it will be useful,
+ *  Ariadne Equation Solving is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  *  GNU General Public License for more details.
  *
  *  You should have received a copy of the GNU General Public License
- *  along with Ariadne.  If not, see <https://www.gnu.org/licenses/>.
+ *  along with Ariadne Equation Solving. If not, see <https://www.gnu.org/licenses/>.
  */
 
-/*! \file equation-solving/interval_newton_method.hpp
- *  \brief Interval Newton method for validated equation solving.
+/** @file equation-solving/interval_newton_method.hpp
+ *  @brief Interval Newton method for validated equation solving.
  */
 
 #ifndef ARIADNE_INTERVAL_NEWTON_METHOD_HPP
@@ -42,6 +42,7 @@ class IntervalNewtonSolver
   public:
     /*! \brief Constructor. */
     IntervalNewtonSolver(ApproximateDouble max_error, Nat max_steps) : EquationSolverBase(max_error,max_steps) { }
+    /** @brief Construct an interval Newton solver with typed limits. */
     IntervalNewtonSolver(MaximumError max_error, MaximumNumericTypeOfSteps max_steps) : EquationSolverBase(max_error,max_steps) { }
     /*! \brief Cloning operator. */
     virtual IntervalNewtonSolver* clone() const { return new IntervalNewtonSolver(*this); }
@@ -50,8 +51,10 @@ class IntervalNewtonSolver
 
     using EquationSolverBase::implicit;
   public:
+    /** @brief Contract the implicit function patch using interval Newton. */
     virtual ValidatedVectorMultivariateFunctionPatch implicit_step(const ValidatedVectorMultivariateFunction& f, const ValidatedVectorMultivariateFunctionPatch& p, const ValidatedVectorMultivariateFunctionPatch& x) const;
 
+    /** @brief Apply one interval Newton contraction step. */
     virtual Vector<ValidatedNumericType> step(const ValidatedVectorMultivariateFunction& f, const Vector<ValidatedNumericType>& pt) const;
 };
 

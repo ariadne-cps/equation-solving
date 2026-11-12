@@ -6,24 +6,24 @@
  ****************************************************************************/
 
 /*
- *  This file is part of Ariadne.
+ *  This file is part of Ariadne Equation Solving.
  *
- *  Ariadne is free software: you can redistribute it and/or modify
+ *  Ariadne Equation Solving is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
  *  (at your option) any later version.
  *
- *  Ariadne is distributed in the hope that it will be useful,
+ *  Ariadne Equation Solving is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  *  GNU General Public License for more details.
  *
  *  You should have received a copy of the GNU General Public License
- *  along with Ariadne.  If not, see <https://www.gnu.org/licenses/>.
+ *  along with Ariadne Equation Solving. If not, see <https://www.gnu.org/licenses/>.
  */
 
-/*! \file equation-solving/krawczyk_method.hpp
- *  \brief Krawczyk methods for validated equation solving.
+/** @file equation-solving/krawczyk_method.hpp
+ *  @brief Krawczyk methods for validated equation solving.
  */
 
 #ifndef ARIADNE_KRAWCZYK_METHOD_HPP
@@ -43,6 +43,7 @@ class KrawczykSolver
   public:
     /*! \brief Constructor. */
     KrawczykSolver(ApproximateDouble max_error, Nat max_steps) : EquationSolverBase(max_error,max_steps) { }
+    /** @brief Construct a Krawczyk solver with typed limits. */
     KrawczykSolver(MaximumError max_error, MaximumNumericTypeOfSteps max_steps) : EquationSolverBase(max_error,max_steps) { }
     /*! \brief Cloning operator. */
     virtual KrawczykSolver* clone() const { return new KrawczykSolver(*this); }
@@ -69,6 +70,7 @@ class FactoredKrawczykSolver
   public:
     /*! \brief Constructor. */
     FactoredKrawczykSolver(ApproximateDouble max_error, Nat max_steps) : KrawczykSolver(max_error,max_steps) { }
+    /** @brief Construct a factored Krawczyk solver with typed limits. */
     FactoredKrawczykSolver(MaximumError max_error, MaximumNumericTypeOfSteps max_steps) : KrawczykSolver(max_error,max_steps) { }
     /*! \brief Cloning operator. */
     virtual FactoredKrawczykSolver* clone() const { return new FactoredKrawczykSolver(*this); }
