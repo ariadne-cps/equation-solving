@@ -1,3 +1,31 @@
+/***************************************************************************
+ *            tutorials/tutorial_equation_solving/tutorial_equation_solving.cpp
+ *
+ *  Copyright  2026  Luca Geretti
+ *
+ ****************************************************************************/
+
+/*
+ *  This file is part of Ariadne Equation Solving.
+ *
+ *  Ariadne Equation Solving is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Ariadne Equation Solving is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with Ariadne Equation Solving. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+/** @file tutorials/tutorial_equation_solving/tutorial_equation_solving.cpp
+ *  @brief Demonstrate root solving and validated implicit equations.
+ */
+
 #include <iostream>
 #include <string>
 #include "ariadne-equation-solving.hpp"
