@@ -33,8 +33,3 @@ ctest --test-dir build --output-on-failure
 ## Python bindings
 
 A compatible Python 3.11+ development environment enables the standalone `pyariadne_equationsolving` extension with bindings for the equation-solving algorithms.
-
-## Tutorials
-
-- C++: `tutorials/tutorial_equation_solving/tutorial_equation_solving.cpp`.
-- Python: `python/tutorials/tutorial_equation_solving.py`.
