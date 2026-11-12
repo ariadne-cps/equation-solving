@@ -37,19 +37,19 @@ namespace Ariadne {
  *  \brief ExactIntervalType Newton solver. Uses the contractor \f$[x']=x_0-Df^{-1}([x])f(x_0)\f$.
  */
 class IntervalNewtonSolver
-    : public EquationSolverBase
-{
+    : public EquationSolverBase {
   public:
     /*! \brief Constructor. */
-    IntervalNewtonSolver(ApproximateDouble max_error, Nat max_steps) : EquationSolverBase(max_error,max_steps) { }
+    IntervalNewtonSolver(ApproximateDouble max_error, Nat max_steps) : EquationSolverBase(max_error, max_steps) {}
     /** @brief Construct an interval Newton solver with typed limits. */
-    IntervalNewtonSolver(MaximumError max_error, MaximumNumericTypeOfSteps max_steps) : EquationSolverBase(max_error,max_steps) { }
+    IntervalNewtonSolver(MaximumError max_error, MaximumNumericTypeOfSteps max_steps) : EquationSolverBase(max_error, max_steps) {}
     /*! \brief Cloning operator. */
     virtual IntervalNewtonSolver* clone() const { return new IntervalNewtonSolver(*this); }
     /*! \brief Write to an output stream. */
     virtual Void _write(OutputStream& os) const;
 
     using EquationSolverBase::implicit;
+
   public:
     /** @brief Contract the implicit function patch using interval Newton. */
     virtual ValidatedVectorMultivariateFunctionPatch implicit_step(const ValidatedVectorMultivariateFunction& f, const ValidatedVectorMultivariateFunctionPatch& p, const ValidatedVectorMultivariateFunctionPatch& x) const;
@@ -57,8 +57,6 @@ class IntervalNewtonSolver
     /** @brief Apply one interval Newton contraction step. */
     virtual Vector<ValidatedNumericType> step(const ValidatedVectorMultivariateFunction& f, const Vector<ValidatedNumericType>& pt) const;
 };
-
-
 
 } // namespace Ariadne
 

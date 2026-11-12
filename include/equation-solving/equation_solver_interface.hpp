@@ -33,24 +33,31 @@
 #include <stdexcept>
 #include <string>
 
-namespace Ariadne { template<class T> class Set; }
+namespace Ariadne {
+template<class T>
+class Set;
+}
 
-#include "numeric/declarations.hpp"
 #include "algebra/declarations.hpp"
 #include "function/declarations.hpp"
 #include "geometry/declarations.hpp"
 #include "logging/logging.hpp"
-
+#include "numeric/declarations.hpp"
 
 namespace Ariadne {
 
-
 /** @brief Compare vectors lexicographically using decided component order. */
-template<class X> bool operator<(Vector<X> const& v1, Vector<X> const& v2) {
-    if(v1.size()!=v2.size()) { return v1.size()<v2.size(); }
-    for(SizeType i=0; i!=v1.size(); ++i) {
-        if(decide(v1[i]<v2[i])) { return true; }
-        else if(decide(v1[i]>v2[i])) { return false; }
+template<class X>
+bool operator<(const Vector<X>& v1, const Vector<X>& v2) {
+    if (v1.size() != v2.size()) {
+        return v1.size() < v2.size();
+    }
+    for (SizeType i = 0; i != v1.size(); ++i) {
+        if (decide(v1[i] < v2[i])) {
+            return true;
+        } else if (decide(v1[i] > v2[i])) {
+            return false;
+        }
     }
     return false;
 }
@@ -58,46 +65,41 @@ template<class X> bool operator<(Vector<X> const& v1, Vector<X> const& v2) {
 class EquationSolverInterface;
 
 //! \relates EquationSolverInterface \brief An exception occurring in the solution of a (parameterised) algebraic equation.
-class EquationSolverException : public std::runtime_error
-{
+class EquationSolverException : public std::runtime_error {
   public:
     /** @brief Construct an equation solver error from a C string. */
-    EquationSolverException(const char* what) : std::runtime_error(what) { }
+    EquationSolverException(const char* what) : std::runtime_error(what) {}
     /** @brief Construct an equation solver error from a string. */
-    EquationSolverException(const StringType& what) : std::runtime_error(what) { }
+    EquationSolverException(const StringType& what) : std::runtime_error(what) {}
 };
 
 //! \relates EquationSolverInterface \brief It cannot be shown that there is no solution to a (parameterised) algebraic equation,
 //! \brief but no solution can be found by the solver.
-class UnknownSolutionException : public EquationSolverException
-{
+class UnknownSolutionException : public EquationSolverException {
   public:
     /** @brief Report that a solution could not be established. */
-    UnknownSolutionException(const char* what) : EquationSolverException(what) { }
+    UnknownSolutionException(const char* what) : EquationSolverException(what) {}
     /** @brief Report that a solution could not be established. */
-    UnknownSolutionException(const StringType& what) : EquationSolverException(what) { }
+    UnknownSolutionException(const StringType& what) : EquationSolverException(what) {}
 };
 
 //! \relates EquationSolverInterface \brief There are no solutions to a (parameterised) algebraic equation in the domain.
-class NoSolutionException : public EquationSolverException
-{
+class NoSolutionException : public EquationSolverException {
   public:
     /** @brief Report the absence of solutions. */
-    NoSolutionException(const char* what) : EquationSolverException(what) { }
+    NoSolutionException(const char* what) : EquationSolverException(what) {}
     /** @brief Report the absence of solutions. */
-    NoSolutionException(const StringType& what) : EquationSolverException(what) { }
+    NoSolutionException(const StringType& what) : EquationSolverException(what) {}
 };
 
 //! \relates EquationSolverInterface \brief The solutions to a (parameterised) algebraic equation are degenerate due to the Jacobian being singular.
-class SingularJacobianException : public EquationSolverException
-{
+class SingularJacobianException : public EquationSolverException {
   public:
     /** @brief Report a singular Jacobian preventing contraction. */
-    SingularJacobianException(const char* what) : EquationSolverException(what) { }
+    SingularJacobianException(const char* what) : EquationSolverException(what) {}
     /** @brief Report a singular Jacobian preventing contraction. */
-    SingularJacobianException(const StringType& what) : EquationSolverException(what) { }
+    SingularJacobianException(const StringType& what) : EquationSolverException(what) {}
 };
-
 
 //! \ingroup AlgebraicEquationSubModule
 //! \brief %Interface for solving (nonlinear) equations.
@@ -110,13 +112,14 @@ class SingularJacobianException : public EquationSolverException
 //! The maximum_error() provides an upper bound on the size of a box containing a solution point,
 //! uniforma bounds for an implicit function.
 //! The maximum_number_of_steps() provides a timeout mechanism.
-class EquationSolverInterface
-{
-    using FLT=FloatDP;
+class EquationSolverInterface {
+    using FLT = FloatDP;
+
   public:
     typedef Bounds<FLT> ValidatedNumericType;
     typedef Approximation<FLT> ApproximateNumericType;
     typedef ValidatedVectorMultivariateFunctionPatch ValidatedVectorMultivariateFunctionModelType;
+
   public:
     //! \brief Virtual destructor.
     virtual ~EquationSolverInterface() = default;
@@ -124,7 +127,6 @@ class EquationSolverInterface
     virtual EquationSolverInterface* clone() const = 0;
     //! \brief Write to an output stream.
     virtual Void _write(OutputStream& os) const = 0;
-
 
     //! \brief The maximum permissible error of the solution.
     virtual ExactDouble maximum_error() const = 0;
@@ -137,9 +139,9 @@ class EquationSolverInterface
     virtual Void set_maximum_number_of_steps(Nat max_steps) = 0;
 
     //! \brief Solve \f$f(x)=0\f$, starting in the box \a bx.
-    virtual Vector<ValidatedNumericType> zero(const ValidatedVectorMultivariateFunction& f,const ExactBoxType& bx) const = 0;
+    virtual Vector<ValidatedNumericType> zero(const ValidatedVectorMultivariateFunction& f, const ExactBoxType& bx) const = 0;
     //! \brief Solve \f$f(x)=x\f$, starting in the box \a bx.
-    virtual Vector<ValidatedNumericType> fixed_point(const ValidatedVectorMultivariateFunction& f,const ExactBoxType& bx) const = 0;
+    virtual Vector<ValidatedNumericType> fixed_point(const ValidatedVectorMultivariateFunction& f, const ExactBoxType& bx) const = 0;
 
     //! \brief Solve \f$f(x)=0\f$, starting in the box \a bx. Throws a EquationSolverException if a unique solution is not found.
     //!  \param f A function \f$\R^n\to\R^n\f$ for which the root \f$p\f$ is to be found.
@@ -156,8 +158,8 @@ class EquationSolverInterface
     //! However, choosing too small a box may also cause the algorithm to fail if the root is too close to the boundary.
     //!
     //! The solve_all() method is an algorithm which attempts to find all roots.
-    virtual Vector<ValidatedNumericType> solve(const ValidatedVectorMultivariateFunction& f,const ExactBoxType& bx) const = 0;
-    virtual Vector<ValidatedNumericType> solve(const ValidatedVectorMultivariateFunction& f,const Vector<ValidatedNumericType>& ipt) const = 0;
+    virtual Vector<ValidatedNumericType> solve(const ValidatedVectorMultivariateFunction& f, const ExactBoxType& bx) const = 0;
+    virtual Vector<ValidatedNumericType> solve(const ValidatedVectorMultivariateFunction& f, const Vector<ValidatedNumericType>& ipt) const = 0;
     //! \brief Solve \f$f(a,x)=0\f$ for \f$a\f$ in \f$A\f$, looking for a solution with \f$x\f$ in \f$X\f$. The result is a function \f$h\f$ with domain \f$A\f$ such that \f$f(a,h(a))=0\f$ for all \f$a\in A\f$.
     //!  \param f A function \f$\R^{m+n}\to\R^n\f$.
     //!  \param A A subset of \f$\R^m\f$ giving the required domain of the solution function \f$h\f$.
@@ -176,17 +178,18 @@ class EquationSolverInterface
     virtual ValidatedScalarMultivariateFunctionPatch implicit(const ValidatedScalarMultivariateFunction& f, const ExactBoxType& A, const ExactIntervalType& X) const = 0;
 
     //! \brief Solve \f$f(a,x)=0\f$ for x in \a X, and continue to a function \f$h\f$ solving \f$f(a,h(a))=0\f$ over \f$A\f$.
-    virtual ValidatedVectorMultivariateFunctionPatch continuation(const ValidatedVectorMultivariateFunction& f, const Vector<ApproximateNumericType>& a, const ExactBoxType& X,  const ExactBoxType& A) const = 0;
+    virtual ValidatedVectorMultivariateFunctionPatch continuation(const ValidatedVectorMultivariateFunction& f, const Vector<ApproximateNumericType>& a, const ExactBoxType& X, const ExactBoxType& A) const = 0;
 
     //! \brief Solve \f$f(x)=0\f$, starting in the box \a bx. Returns a set of bounds for which it can be <em>proved</em> that
     //! a solution exists in within the bounds. This means that some solutions may be omitted if they are not sufficiently robust.
     //!
-    virtual Set< Vector<ValidatedNumericType> > solve_all(const ValidatedVectorMultivariateFunction& f,const ExactBoxType& bx) const = 0;
+    virtual Set<Vector<ValidatedNumericType> > solve_all(const ValidatedVectorMultivariateFunction& f, const ExactBoxType& bx) const = 0;
 };
 
 /** @brief Write the solver's configuration to an output stream. */
 inline OutputStream& operator<<(OutputStream& os, const EquationSolverInterface& solver) {
-    solver._write(os); return os;
+    solver._write(os);
+    return os;
 }
 
 } // namespace Ariadne

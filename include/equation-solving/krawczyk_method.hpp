@@ -38,13 +38,12 @@ namespace Ariadne {
  *  where \f$M\f$ is typically \f$Df^{-1}(x_0)\f$.
  */
 class KrawczykSolver
-    : public EquationSolverBase
-{
+    : public EquationSolverBase {
   public:
     /*! \brief Constructor. */
-    KrawczykSolver(ApproximateDouble max_error, Nat max_steps) : EquationSolverBase(max_error,max_steps) { }
+    KrawczykSolver(ApproximateDouble max_error, Nat max_steps) : EquationSolverBase(max_error, max_steps) {}
     /** @brief Construct a Krawczyk solver with typed limits. */
-    KrawczykSolver(MaximumError max_error, MaximumNumericTypeOfSteps max_steps) : EquationSolverBase(max_error,max_steps) { }
+    KrawczykSolver(MaximumError max_error, MaximumNumericTypeOfSteps max_steps) : EquationSolverBase(max_error, max_steps) {}
     /*! \brief Cloning operator. */
     virtual KrawczykSolver* clone() const { return new KrawczykSolver(*this); }
     /*! \brief Write to an output stream. */
@@ -52,37 +51,36 @@ class KrawczykSolver
 
     /*! \brief Solve \f$f(a,x)=0\f$ for a in \a par, looking for solutions with x in \a ix. */
     virtual ValidatedVectorMultivariateFunctionPatch implicit_step(const ValidatedVectorMultivariateFunction& f, const ValidatedVectorMultivariateFunctionPatch& p, const ValidatedVectorMultivariateFunctionPatch& x) const;
+
   public:
     /*! \brief A single step of the Krawczyk contractor. */
     virtual Vector<ValidatedNumericType>
-    step(const ValidatedVectorMultivariateFunction& f,
-          const Vector<ValidatedNumericType>& pt) const;
+        step(const ValidatedVectorMultivariateFunction& f,
+             const Vector<ValidatedNumericType>& pt) const;
 };
-
 
 /*! \ingroup Solvers
  *  \brief Modified Krawczyk solver. Uses the contractor \f$[x']=x_0-J^{-1}(f(x_0)+(J-Df([x])([x]-x_0)\f$
  *  where \f$J\f$ is typically \f$Df(x_0)\f$.
  */
 class FactoredKrawczykSolver
-    : public KrawczykSolver
-{
+    : public KrawczykSolver {
   public:
     /*! \brief Constructor. */
-    FactoredKrawczykSolver(ApproximateDouble max_error, Nat max_steps) : KrawczykSolver(max_error,max_steps) { }
+    FactoredKrawczykSolver(ApproximateDouble max_error, Nat max_steps) : KrawczykSolver(max_error, max_steps) {}
     /** @brief Construct a factored Krawczyk solver with typed limits. */
-    FactoredKrawczykSolver(MaximumError max_error, MaximumNumericTypeOfSteps max_steps) : KrawczykSolver(max_error,max_steps) { }
+    FactoredKrawczykSolver(MaximumError max_error, MaximumNumericTypeOfSteps max_steps) : KrawczykSolver(max_error, max_steps) {}
     /*! \brief Cloning operator. */
     virtual FactoredKrawczykSolver* clone() const { return new FactoredKrawczykSolver(*this); }
     /*! \brief Write to an output stream. */
     virtual Void _write(OutputStream& os) const;
+
   public:
     /*! \brief A single step of the modified Krawczyk contractor. */
     virtual Vector<ValidatedNumericType>
-    step(const ValidatedVectorMultivariateFunction& f,
-          const Vector<ValidatedNumericType>& pt) const;
+        step(const ValidatedVectorMultivariateFunction& f,
+             const Vector<ValidatedNumericType>& pt) const;
 };
-
 
 } // namespace Ariadne
 

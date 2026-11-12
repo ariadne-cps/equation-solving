@@ -29,23 +29,26 @@
 #ifndef ARIADNE_SOLVER_ATTRIBUTES_HPP
 #define ARIADNE_SOLVER_ATTRIBUTES_HPP
 
-#include "utility/attribute.hpp"
 #include "numeric/builtin.hpp"
+#include "utility/attribute.hpp"
 
 namespace Ariadne {
-
 
 /** @brief Specify a maximum permissible equation residual. */
 struct MaximumError : Attribute<ApproximateDouble> {
     /** @brief Construct a maximum error attribute from an approximate double. */
-    MaximumError(ApproximateDouble x) : Attribute<ApproximateDouble>(x) { }
+    MaximumError(ApproximateDouble x) : Attribute<ApproximateDouble>(x) {}
     /** @brief Construct a maximum error attribute from a native double. */
-    MaximumError(double x) : Attribute<ApproximateDouble>(x) { }
+    MaximumError(double x) : Attribute<ApproximateDouble>(x) {}
 };
 /** @brief Configure the numerical sweep threshold. */
-struct SweepThreshold : Attribute<ApproximateDouble> { using Attribute<ApproximateDouble>::Attribute; };
+struct SweepThreshold : Attribute<ApproximateDouble> {
+    using Attribute<ApproximateDouble>::Attribute;
+};
 /** @brief Limit the number of iterative solver steps. */
-struct MaximumNumericTypeOfSteps : Attribute<Nat> { using Attribute<Nat>::Attribute; };
+struct MaximumNumericTypeOfSteps : Attribute<Nat> {
+    using Attribute<Nat>::Attribute;
+};
 
 /** @brief Construct the maximum error attribute using the generator. */
 static const Generator<MaximumError> maximum_error = Generator<MaximumError>();
