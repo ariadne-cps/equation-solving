@@ -39,6 +39,7 @@
 #include "function/function_patch.hpp"
 #include "function/taylor_function.hpp"
 #include "logging/logging.hpp"
+#include "logging/test_runner.hpp"
 
 #include "ariadne-testing.hpp"
 #include "equation-solving/equation_solver.hpp"
@@ -474,12 +475,6 @@ class TestEquationSolverContracts : public Ariadne::Testing::ContextFixture {
 };
 
 int main(int argc, char** argv) {
-    // Preserve logging coverage without flooding the test reporter.
-#ifdef _WIN32
-    Logger::instance().redirect_to_file("NUL");
-#else
-    Logger::instance().redirect_to_file("/dev/null");
-#endif
     ARIADNE_TESTING_SUITE("test_equation_solvers");
     ARIADNE_TESTING_ADD_TEST(TestEquationSolverContracts, test_equation_solver_header_contracts);
     ARIADNE_TESTING_ADD_TEST(TestEquationSolverContracts, test_equation_solver_base_paths);
@@ -521,5 +516,5 @@ int main(int argc, char** argv) {
     ARIADNE_TESTING_ADD_VARIANT_TEST(factored_krawczyk, test_implicit);
     ARIADNE_TESTING_ADD_VARIANT_TEST(factored_krawczyk, test_scalar_implicit);
 
-    return ARIADNE_TESTING_RUN_TESTS_WITH_ARGS(argc, argv);
+    return Ariadne::Testing::run_logging_suite(ariadne_test_suite, argc, argv);
 }
